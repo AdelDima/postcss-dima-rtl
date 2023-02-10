@@ -6,12 +6,22 @@
     "postcss",
     "css",
     "postcss-plugin",
-    "postcss-dima-rtl"
+    "postcss-dima-rtl",
+    "postcss-plugin",
+    "postcss plugin",
+    "rtl",
+    "ltr",
+    "right to left",
+    "left to right"
   ],
   "scripts": {
-    "test": "jest --coverage && eslint ."
+    "test": "jest --coverage && eslint .",
+    "build": "babel ./src --out-dir ./lib --ignore '**/__tests__/*'",
+    "lint": "eslint ./src",
+    "prepare": "npm run lint && npm run build && npm test",
+    "start": "jest --watch"
   },
-  "author": "Adel Tahri",
+  "author": "Adel Tahri adel4tahri@gmail.com",
   "license": "MIT",
   "repository": "https://github.com/AdelDima/postcss-dima-rtl",
   "engines": {
@@ -21,12 +31,12 @@
     "postcss": "^8.3.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.20.7",
+    "@babel/core": "^7.20.12",
     "clean-publish": "^3.4.2",
     "eslint": "^8.0.1",
     "eslint-plugin-jest": "^25.2.2",
     "jest": "^27.3.1",
-    "postcss": "^8.3.11",
-    "rtlcss": "^4.0.0",
     "typescript": "^4.9.5"
   },
   "eslintConfig": {
@@ -51,5 +61,8 @@
         "statements": 100
       }
     }
+  },
+  "dependencies": {
+    "rtlcss": "^4.0.0"
   }
 }
