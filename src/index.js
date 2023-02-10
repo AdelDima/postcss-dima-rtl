@@ -27,8 +27,10 @@ const plugin = (options) => {
       const dirDecls = [];
 
       root.walkRules((rule) => {
-        if (!rule.parent.source.input.file.endsWith("-rtl.css")) return;
-
+        /* istanbul ignore start */
+        if (!rule.parent.source || !rule.parent.source.input.file || !rule.parent.source.input.file.endsWith("-rtl.css")) return;
+        /* istanbul ignore end */
+        
         rule.walkDecls((decl) => {
           if (!isAllowedProp(decl.prop)) return;
 
@@ -43,7 +45,7 @@ const plugin = (options) => {
         });
 
         if (dirDecls.length) {
-          getDirRule(rule, 'dir', options).append(dirDecls);
+          getDirRule(rule, "dir", options).append(dirDecls);
         }
       });
     },

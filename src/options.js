@@ -1,14 +1,14 @@
 const defaultOptions = {
-    addPrefixToSelector: false, // customized function for joining prefix and selector
-    prefixType: 'attribute', // type of dir-prefix: attribute [dir] or class .dir,
-    prefix: 'dir', // string to use as prefix (e.g. dir, my-special-dir)
-    onlyDirection: false, // "ltr", "rtl": compile only one-direction version
-    fromRTL: false, // assume styles are written in rtl initially
-    removeComments: true, // remove comments after process them
-    blacklist: undefined, // blacklist for css properties
-    whitelist: undefined, // whitelist for css properties
-    aliases: undefined,
-  };
+  addPrefixToSelector: false, // customized function for joining prefix and selector
+  prefixType: "attribute", // type of dir-prefix: attribute [dir] or class .dir,
+  prefix: "dir", // string to use as prefix (e.g. dir, my-special-dir)
+  onlyDirection: false, // "ltr", "rtl": compile only one-direction version
+  fromRTL: false, // assume styles are written in rtl initially
+  removeComments: true, // remove comments after process them
+  blacklist: undefined, // blacklist for css properties
+  whitelist: undefined, // whitelist for css properties
+  aliases: undefined,
+};
   
   /* eslint-disable no-console */
   const validateOptions = (options = {}) => {

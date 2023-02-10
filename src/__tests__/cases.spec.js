@@ -13,5 +13,8 @@ const run = (expect, input, output, opts) =>
       expect(result.warnings().length).toEqual(0);
     });
 
-it("Should NOT add [dir] prefix to symmetric rules", () =>
+it("Should do nothing", () =>
   run(expect, "a { font-size: 1em }", "a { font-size: 1em }"));
+
+it('Should be text-align: right', () =>
+  run(expect, 'a { text-align: left }', 'a { text-align: right }'));
