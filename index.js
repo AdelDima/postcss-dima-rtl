@@ -5,26 +5,23 @@ module.exports = (opts = {}) => {
   // Work with options here
 
   return {
-    postcssPlugin: 'postcss-rtl',
-    /*
-    Root (root, postcss) {
-      // Transform CSS AST here
+    postcssPlugin: 'postcss-dima-rtl',
+    Once(root) {
+      root.walkRules((rule) => {
+        rule.walkDecls((decl) => {
+          if (decl.prop === 'text-align-start') {
+            // Check if the file name ends with "-rtl"
+            if (rule.parent.source.input.file.endsWith('-rtl.css')) {
+              decl.prop = 'text-align';
+              decl.value = 'right';
+            } else {
+              decl.prop = 'text-align';
+              decl.value = 'left';
+            }
+          }
+        });
+      });  
     }
-    */
-
-    /*
-    Declaration (decl, postcss) {
-      // The faster way to find Declaration node
-    }
-    */
-
-    /*
-    Declaration: {
-      color: (decl, postcss) {
-        // The fastest way find Declaration node if you know property name
-      }
-    }
-    */
   }
 }
 

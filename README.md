@@ -1,6 +1,6 @@
-# postcss-rtl
+# postcss-dima-rtl
 
-[PostCSS] plugin RTL Pluginhttps://github.com/AdelDima.
+[PostCSS] RTL Plugin
 
 [PostCSS]: https://github.com/postcss/postcss
 
@@ -21,7 +21,7 @@
 **Step 1:** Install plugin:
 
 ```sh
-npm install --save-dev postcss postcss-rtl
+npm install --save-dev postcss postcss-dima-rtl
 ```
 
 **Step 2:** Check you project for existed PostCSS config: `postcss.config.js`
@@ -36,7 +36,7 @@ and set this plugin in settings.
 ```diff
 module.exports = {
   plugins: [
-+   require('postcss-rtl'),
++   require('postcss-dima-rtl'),
     require('autoprefixer')
   ]
 }
