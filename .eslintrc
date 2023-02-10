@@ -1,0 +1,21 @@
+{
+  "env": {
+    "browser": false,
+    "node": true
+  },
+  "parser": "babel-eslint",
+  "extends": "airbnb-base",
+  "rules": {
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "no-param-reassign": "off",
+    "object-curly-spacing": ["error", "never"]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.spec.*"],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
+}
