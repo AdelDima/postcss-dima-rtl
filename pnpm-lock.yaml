@@ -6,6 +6,7 @@ specifiers:
   eslint-plugin-jest: ^25.2.2
   jest: ^27.3.1
   postcss: ^8.3.11
+  rtlcss: ^4.0.0
   typescript: ^4.9.5
 
 devDependencies:
@@ -14,6 +15,7 @@ devDependencies:
   eslint-plugin-jest: 25.7.0_6iwopyuv7xg3y3j23xjlstyxr4
   jest: 27.5.1
   postcss: 8.4.21
+  rtlcss: 4.0.0
   typescript: 4.9.5
 
 packages:
@@ -2867,6 +2869,17 @@ packages:
     hasBin: true
     dependencies:
       glob: 7.2.3
+    dev: true
+
+  /rtlcss/4.0.0:
+    resolution: {integrity: sha512-j6oypPP+mgFwDXL1JkLCtm6U/DQntMUqlv5SOhpgHhdIE+PmBcjrtAHIpXfbIup47kD5Sgja9JDsDF1NNOsBwQ==}
+    engines: {node: '>=12.0.0'}
+    hasBin: true
+    dependencies:
+      escalade: 3.1.1
+      picocolors: 1.0.0
+      postcss: 8.4.21
+      strip-json-comments: 3.1.1
     dev: true
 
   /run-parallel/1.2.0:
