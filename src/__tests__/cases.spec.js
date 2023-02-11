@@ -39,8 +39,7 @@ it('/* rtl:ignore */: should understand overrides', () => run(
     expect,
     '.x { left: 0 } /* rtl:ignore */.x { direction: ltr }',
   
-    '.x { left: 0 }'
-        + '.x { direction: ltr }',
+    '.x { right: 0 } .x { direction: ltr }',
   ));
 
 it('/* rtl:begin:ignore */ starts ignore mode', () => run(
@@ -83,11 +82,22 @@ expect,
 
 it('/*! rtl:begin:ignore */ and /*! rtl:end:ignore */ should consider as a valid directive', () => run(
     expect,
-    '/*! rtl:begin:ignore */'
-        + '.foo { padding-left: 0 }'
-        + '/*! rtl:end:ignore */'
+    '/*rtl:begin:ignore*/.foo { padding-left: 0 }'
+        + '/*rtl:end:ignore*/'
         + '.bar { direction: ltr }',
 
     '.foo { padding-left: 0 }'
         + '.bar { direction: rtl }',
+));
+
+it('Value based ignore important comments are honored', () => run(
+    expect,
+    '.foo { margin-left: 12px; padding-left: 12px/* rtl:ignore */; }',
+    '.foo { margin-right: 12px; padding-left: 12px; }',
+));
+
+it('Value based ignore important comments are honored', () => run(
+    expect,
+    '.foo { font-family:"Droid Sans", Tahoma/*rtl:prepend:"Droid Arabic Kufi",*/; font-size:14px/*rtl:16px*/; }',
+    '.foo { font-family:"Droid Arabic Kufi","Droid Sans", Tahoma; font-size:16px; }',
 ));

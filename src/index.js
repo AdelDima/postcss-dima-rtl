@@ -1,6 +1,7 @@
 const affectedProps = require("./affected-props");
 const { validateOptions } = require("./options");
 const rtlcss = require("rtlcss");
+const postcss = require('postcss');
 
 
 const handleIgnores = (removeComments = false) => {
@@ -75,17 +76,28 @@ const plugin = (options) => {
         if (node.type !== "rule") {
           return;
         }
+
         const rule = node;
+
+        const rtlResult = rtlcss.process(rule, options);
+        const newRule = postcss.parse(rtlResult).first;
+        rule.replaceWith(newRule);
+        // rule.replaceWith(newRule);
+      
+
+        // newRule.append(rtlResult);
+        // rule.replaceWith(newRule);
 
         rule.walkDecls((decl) => {
           if (!isAllowedProp(decl.prop)) return;
 
           if (affectedProps.indexOf(decl.prop) >= 0) {
-            const rtlResult = rtlcss.process(decl, options);
-            // console.log("decl",decl);
-            if (rtlResult === decl.toString()) {
-              return null;
-            }
+            // const rtlResult = rtlcss.process(decl, options);
+            const rtlResult = decl.toString();
+            
+            // if (rtlResult === decl.toString()) {
+            //   return null;
+            // }
             let { prop, value } = decl;
 
             const cleanRtlResult = rtlResult.replace(
@@ -100,7 +112,10 @@ const plugin = (options) => {
             decl.value = value;
           }
         });
+
       });
+      // root.toResult().css = root.toString();
+
     },
   };
 };
