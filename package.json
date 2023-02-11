@@ -24,8 +24,6 @@
     "rtlcss": "4.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.20.7",
-    "@babel/core": "^7.20.12",
     "@babel/eslint-parser": "^7.19.1",
     "@babel/preset-env": "^7.20.2",
     "eslint": "^7.0.0",
@@ -61,7 +59,7 @@
     }
   },
   "scripts": {
-    "main": "node ./src/index.js",
+    "main": "node ./lib/index.js",
     "test": "jest --coverage && eslint .",
     "build": "babel ./src --out-dir ./lib --ignore '**/__tests__/*'",
     "lint": "eslint ./src",
