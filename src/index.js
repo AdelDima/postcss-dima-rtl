@@ -25,7 +25,6 @@ const plugin = (options) => {
     postcssPlugin: "postcss-dima-rtl",
 
     Once(root) {
-      const dirDecls = [];
 
       root.walkRules((rule) => {
         /* istanbul ignore start */
