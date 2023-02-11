@@ -3,3 +3,4 @@ npm-debug.log
 yarn-error.log
 
 coverage/
+pnpm-lock.yaml
