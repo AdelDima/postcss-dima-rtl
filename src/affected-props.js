@@ -50,5 +50,6 @@ module.exports = [
     'padding-left',
     'text-align-last',
     'text-shadow',
+    'direction',
   ];
   

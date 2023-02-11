@@ -63,29 +63,38 @@ const plugin = (options) => {
     postcssPlugin: "postcss-dima-rtl",
 
     Once(root) {
-      // const isRuleIgnored = handleIgnores(options.removeComments);
-        
-      root.walkRules((rule) => {
+      const isRuleIgnored = handleIgnores(options.removeComments);
+
+      root.walk((node) => {
         /* istanbul ignore start */
         //if (!rule.parent.source || !rule.parent.source.input.file || !rule.parent.source.input.file.endsWith("-rtl.css")) return;
         /* istanbul ignore end */
-        if (isRuleIgnored(rule)) return;
+
+        if (isRuleIgnored(node)) return;
+
+        if (node.type !== "rule") {
+          return;
+        }
+        const rule = node;
 
         rule.walkDecls((decl) => {
           if (!isAllowedProp(decl.prop)) return;
 
           if (affectedProps.indexOf(decl.prop) >= 0) {
-            const rtlResult = rtlcss.process(decl,options);
-            console.log("rtlResult",rtlResult);
-            console.log("decl",decl);
+            const rtlResult = rtlcss.process(decl, options);
+            // console.log("decl",decl);
             if (rtlResult === decl.toString()) {
               return null;
             }
-            let {prop, value} = decl;
+            let { prop, value } = decl;
 
-            const cleanRtlResult = rtlResult.replace(/([^:]*)\s*\/\*.*?\*\/\s*/, '$1');
-            [, prop, value] = cleanRtlResult.match(/([^:]*):\s*([\s\S]*)/) || [];
-            value = value.replace(/\s*!important/, '');
+            const cleanRtlResult = rtlResult.replace(
+              /([^:]*)\s*\/\*.*?\*\/\s*/,
+              "$1"
+            );
+            [, prop, value] =
+              cleanRtlResult.match(/([^:]*):\s*([\s\S]*)/) || [];
+            value = value.replace(/\s*!important/, "");
             // Update the declaration with the new value.
             decl.prop = prop;
             decl.value = value;
