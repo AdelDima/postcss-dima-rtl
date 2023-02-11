@@ -52,7 +52,7 @@ const plugin = (options) => {
       const isRuleIgnored = handleIgnores(options.removeComments);
       /* istanbul ignore start */
       if (!process.env.NODE_ENV === 'test') {
-        if (!root.source.input.file.endsWith('-rtl.css')) return;
+        if (!root.source.input.file.replace(/\.[^/.]+$/, '').endsWith('-rtl')) return;
       }
       /* istanbul ignore end */
 
