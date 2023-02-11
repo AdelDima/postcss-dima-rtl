@@ -82,25 +82,13 @@ const plugin = (options) => {
         const rtlResult = rtlcss.process(rule, options);
         const newRule = postcss.parse(rtlResult).first;
         rule.replaceWith(newRule);
-        // rule.replaceWith(newRule);
-      
-
-        // newRule.append(rtlResult);
-        // rule.replaceWith(newRule);
 
         rule.walkDecls((decl) => {
           if (!isAllowedProp(decl.prop)) return;
 
           if (affectedProps.indexOf(decl.prop) >= 0) {
-            // const rtlResult = rtlcss.process(decl, options);
-            const rtlResult = decl.toString();
-            
-            // if (rtlResult === decl.toString()) {
-            //   return null;
-            // }
             let { prop, value } = decl;
-
-            const cleanRtlResult = rtlResult.replace(
+            const cleanRtlResult = decl.toString().replace(
               /([^:]*)\s*\/\*.*?\*\/\s*/,
               "$1"
             );
