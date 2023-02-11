@@ -1,5 +1,6 @@
 const affectedProps = require("./affected-props");
 const { validateOptions } = require("./options");
+const rtlcss = require("rtlcss");
 /**
  * @type {import('postcss').PluginCreator}
  */
@@ -28,25 +29,30 @@ const plugin = (options) => {
 
       root.walkRules((rule) => {
         /* istanbul ignore start */
-        if (!rule.parent.source || !rule.parent.source.input.file || !rule.parent.source.input.file.endsWith("-rtl.css")) return;
+        //if (!rule.parent.source || !rule.parent.source.input.file || !rule.parent.source.input.file.endsWith("-rtl.css")) return;
         /* istanbul ignore end */
-        
+
         rule.walkDecls((decl) => {
           if (!isAllowedProp(decl.prop)) return;
 
           if (affectedProps.indexOf(decl.prop) >= 0) {
-            dirDecls.push(decl);
-
-            if (decl.prop === "text-align") {
-              decl.prop = "text-align";
-              decl.value = "right";
+            // if (!options.aliases) return false;
+            // if (!options.aliases[decl.prop]) return false;
+        
+            const rtlResult = rtlcss.process(decl);
+            if (rtlResult === decl.toString()) {
+              return null;
             }
+            let {prop, value} = decl;
+
+            const cleanRtlResult = rtlResult.replace(/([^:]*)\s*\/\*.*?\*\/\s*/, '$1');
+            [, prop, value] = cleanRtlResult.match(/([^:]*):\s*([\s\S]*)/) || [];
+            value = value.replace(/\s*!important/, '');
+            // Update the declaration with the new value.
+            decl.prop = prop;
+            decl.value = value;
           }
         });
-
-        if (dirDecls.length) {
-          getDirRule(rule, "dir", options).append(dirDecls);
-        }
       });
     },
   };

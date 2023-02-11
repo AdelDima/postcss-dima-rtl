@@ -44,6 +44,10 @@ module.exports = [
     'transition-property',
     'transition-timing-function',
     'text-align',
+    'margin-right',
+    'margin-left',
+    'padding-right',
+    'padding-left',
     'text-align-last',
     'text-shadow',
   ];
