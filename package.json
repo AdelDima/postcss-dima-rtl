@@ -2,6 +2,7 @@
   "name": "postcss-dima-rtl",
   "version": "0.0.2",
   "description": "PostCSS plugin RTL Pluginhttps://github.com/AdelDima",
+  "main": "./lib/index.js",
   "keywords": [
     "postcss",
     "css",
