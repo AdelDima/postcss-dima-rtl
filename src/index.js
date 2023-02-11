@@ -1,6 +1,44 @@
 const affectedProps = require("./affected-props");
 const { validateOptions } = require("./options");
 const rtlcss = require("rtlcss");
+
+
+const handleIgnores = (removeComments = false) => {
+  let isIgnored = false;
+  let continuousIgnore = false;
+
+  return (node) => {
+    if (node.type === 'comment') {
+      const {text} = node;
+
+      switch (true) {
+        case /^(!\s)?rtl:ignore$/.test(text):
+          isIgnored = true;
+          continuousIgnore = continuousIgnore || false;
+          if (removeComments) node.remove();
+          break;
+        case /^(!\s)?rtl:begin:ignore$/.test(text):
+          isIgnored = true;
+          continuousIgnore = true;
+          if (removeComments) node.remove();
+          break;
+        case /^(!\s)?rtl:end:ignore$/.test(text):
+          isIgnored = false;
+          continuousIgnore = false;
+          if (removeComments) node.remove();
+          break;
+        default:
+      }
+      return true;
+    }
+    if (!continuousIgnore && isIgnored) {
+      isIgnored = false;
+      return true;
+    }
+    return isIgnored;
+  };
+};
+
 /**
  * @type {import('postcss').PluginCreator}
  */
@@ -25,18 +63,21 @@ const plugin = (options) => {
     postcssPlugin: "postcss-dima-rtl",
 
     Once(root) {
-
+      // const isRuleIgnored = handleIgnores(options.removeComments);
+        
       root.walkRules((rule) => {
         /* istanbul ignore start */
         //if (!rule.parent.source || !rule.parent.source.input.file || !rule.parent.source.input.file.endsWith("-rtl.css")) return;
         /* istanbul ignore end */
+        if (isRuleIgnored(rule)) return;
 
         rule.walkDecls((decl) => {
           if (!isAllowedProp(decl.prop)) return;
 
           if (affectedProps.indexOf(decl.prop) >= 0) {
-            console.log("options", options);
             const rtlResult = rtlcss.process(decl,options);
+            console.log("rtlResult",rtlResult);
+            console.log("decl",decl);
             if (rtlResult === decl.toString()) {
               return null;
             }
