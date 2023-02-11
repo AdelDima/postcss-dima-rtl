@@ -1,12 +1,18 @@
-# postcss-dima-rtl
+# PostCSS-DIMA-RTL
 
-[PostCSS] RTL Plugin
+PostCSS-dima-rtl is a [PostCSS] RTL Plugin use [RTLCSS].
+
+It verifies if the name of your CSS/PCSS file includes the suffix '-rtl', and if so, it applies [RTLCSS] to the RTL file exclusively.
 
 [PostCSS]: https://github.com/postcss/postcss
+[RTLCSS]: https://github.com/MohammadYounes/rtlcss
 
 ```css
-.foo {
-  /* Input example */
+.code {
+  /*rtl:ignore*/
+  direction:ltr;
+  /*rtl:ignore*/
+  text-align:left;
 }
 ```
 

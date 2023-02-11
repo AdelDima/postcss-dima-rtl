@@ -93,7 +93,7 @@ it('Value based ignore important comments are honored', () => run(
   '.foo { margin-right: 12px; padding-left: 12px; }',
 ));
 
-it('Value based ignore important comments are honored', () => run(
+it('Value use /*rtl:{name}:{value}*/ or nameless /*rtl:{value}*/.', () => run(
   expect,
   '.foo { font-family:"Droid Sans", Tahoma/*rtl:prepend:"Droid Arabic Kufi",*/; font-size:14px/*rtl:16px*/; }',
   '.foo { font-family:"Droid Arabic Kufi","Droid Sans", Tahoma; font-size:16px; }',
