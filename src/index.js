@@ -65,11 +65,11 @@ const plugin = (options) => {
 
     Once(root) {
       const isRuleIgnored = handleIgnores(options.removeComments);
+        /* istanbul ignore start */
+        // if (!root.source.input.file.endsWith("-rtl.css")) return;
+        /* istanbul ignore end */
 
       root.walk((node) => {
-        /* istanbul ignore start */
-        //if (!rule.parent.source || !rule.parent.source.input.file || !rule.parent.source.input.file.endsWith("-rtl.css")) return;
-        /* istanbul ignore end */
 
         if (isRuleIgnored(node)) return;
 
@@ -78,31 +78,29 @@ const plugin = (options) => {
         }
 
         const rule = node;
-
         const rtlResult = rtlcss.process(rule, options);
         const newRule = postcss.parse(rtlResult).first;
         rule.replaceWith(newRule);
 
-        rule.walkDecls((decl) => {
-          if (!isAllowedProp(decl.prop)) return;
+        // rule.walkDecls((decl) => {
+        //   if (!isAllowedProp(decl.prop)) return;
 
-          if (affectedProps.indexOf(decl.prop) >= 0) {
-            let { prop, value } = decl;
-            const cleanRtlResult = decl.toString().replace(
-              /([^:]*)\s*\/\*.*?\*\/\s*/,
-              "$1"
-            );
-            [, prop, value] =
-              cleanRtlResult.match(/([^:]*):\s*([\s\S]*)/) || [];
-            value = value.replace(/\s*!important/, "");
-            // Update the declaration with the new value.
-            decl.prop = prop;
-            decl.value = value;
-          }
-        });
+        //   if (affectedProps.indexOf(decl.prop) >= 0) {
+        //     let { prop, value } = decl;
+        //     const cleanRtlResult = decl.toString().replace(
+        //       /([^:]*)\s*\/\*.*?\*\/\s*/,
+        //       "$1"
+        //     );
+        //     [, prop, value] =
+        //       cleanRtlResult.match(/([^:]*):\s*([\s\S]*)/) || [];
+        //     value = value.replace(/\s*!important/, "");
+        //     // Update the declaration with the new value.
+        //     decl.prop = prop;
+        //     decl.value = value;
+        //   }
+        // });
 
       });
-      // root.toResult().css = root.toString();
 
     },
   };
