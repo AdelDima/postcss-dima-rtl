@@ -13,22 +13,12 @@ const defaultOptions = {
   removeComments: true, // remove comments after process them
   fromRTL: false, // assume styles are written in rtl initially
 
-}
-
+};
 
 /* eslint-disable no-console */
 const validateOptions = (options = {}) => {
   const {
-    autoRename,
-    autoRenameStrict,
     blacklist,
-    clean ,
-    greedy ,
-    processUrls ,
-    stringMap,
-    useCalc,
-    aliases,
-    processEnv,
     removeComments,
     fromRTL,
   } = options;
@@ -48,7 +38,7 @@ const validateOptions = (options = {}) => {
     fixedOptions.removeComments = defaultOptions.removeComments;
     console.warn('Incorrect fromRTL option. Must be a boolean');
   }
-  
+
   return {
     ...defaultOptions,
     ...options,

@@ -51,9 +51,9 @@ const plugin = (options) => {
     Once(root) {
       const isRuleIgnored = handleIgnores(options.removeComments);
       /* istanbul ignore start */
-      if (!process.env.NODE_ENV === 'test') {
-       if (!root.source.input.file.replace(/\.[^/.]+$/, '').endsWith('-rtl')) return;
-      }
+      // if (!process.env.NODE_ENV === 'test') {
+        if (!root.source.input.file.replace(/\.[^/.]+$/, '').endsWith('-rtl')) return;
+      // }
       /* istanbul ignore end */
 
       root.walk((node) => {
