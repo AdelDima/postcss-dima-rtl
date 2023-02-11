@@ -65,12 +65,14 @@ const plugin = (options) => {
 
     Once(root) {
       const isRuleIgnored = handleIgnores(options.removeComments);
-        /* istanbul ignore start */
-        if (!root.source.input.file.endsWith("-rtl.css")) return;
-        /* istanbul ignore end */
+      // console.log('-****-->', );
+      /* istanbul ignore start */
+      if( !process.env.NODE_ENV === 'test') {
+        if (!root.source.input.file.endsWith("-rtl.css"))  return;
+      }
+      /* istanbul ignore end */
 
       root.walk((node) => {
-
         if (isRuleIgnored(node)) return;
 
         if (node.type !== "rule") {
@@ -99,9 +101,7 @@ const plugin = (options) => {
         //     decl.value = value;
         //   }
         // });
-
       });
-
     },
   };
 };
