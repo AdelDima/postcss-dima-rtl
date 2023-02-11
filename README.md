@@ -6,6 +6,7 @@ It verifies if the name of your CSS/PCSS file includes the suffix '-rtl', and if
 
 [PostCSS]: https://github.com/postcss/postcss
 [RTLCSS]: https://github.com/MohammadYounes/rtlcss
+## **Examples**
 
 **LTR input:**
 ```css
@@ -21,6 +22,27 @@ It verifies if the name of your CSS/PCSS file includes the suffix '-rtl', and if
   text-align:right;
 }
 ```
+
+## **Value Directives**
+
+**LTR input:**
+```css
+body { 
+    font-family:"Droid Sans", Tahoma/*rtl:prepend:"Droid Arabic Kufi",*/; 
+    font-size:14px/*rtl:16px*/; 
+}
+```
+
+**RTL output:**
+```css
+body {  
+  font-family:"Droid Arabic Kufi","Droid Sans", 
+  Tahoma; font-size:16px; 
+}
+```
+
+## Ignoring specific declarations
+To skip flipping specific declarations use some of supported directives:
 
 | Syntax | Description |
 | ------ | ----------- |
