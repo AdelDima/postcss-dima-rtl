@@ -35,10 +35,8 @@ const plugin = (options) => {
           if (!isAllowedProp(decl.prop)) return;
 
           if (affectedProps.indexOf(decl.prop) >= 0) {
-            // if (!options.aliases) return false;
-            // if (!options.aliases[decl.prop]) return false;
-        
-            const rtlResult = rtlcss.process(decl);
+            console.log("options", options);
+            const rtlResult = rtlcss.process(decl,options);
             if (rtlResult === decl.toString()) {
               return null;
             }
