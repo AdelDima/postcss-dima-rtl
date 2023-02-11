@@ -52,7 +52,7 @@ const plugin = (options) => {
       const isRuleIgnored = handleIgnores(options.removeComments);
       /* istanbul ignore start */
       if (!process.env.NODE_ENV === 'test') {
-        if (!root.source.input.file.replace(/\.[^/.]+$/, '').endsWith('-rtl')) return;
+       if (!root.source.input.file.replace(/\.[^/.]+$/, '').endsWith('-rtl')) return;
       }
       /* istanbul ignore end */
 
@@ -64,7 +64,8 @@ const plugin = (options) => {
         }
 
         const rule = node;
-        const rtlResult = rtlcss.process(rule, options);
+        const rtlResult = rtlcss.process(rule.toString(), options);
+        // console.log('------>',rtlResult);
         const newRule = postcss.parse(rtlResult).first;
         rule.replaceWith(newRule);
       });

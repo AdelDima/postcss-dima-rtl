@@ -7,6 +7,43 @@ It verifies if the name of your CSS/PCSS file includes the suffix '-rtl', and if
 [PostCSS]: https://github.com/postcss/postcss
 [RTLCSS]: https://github.com/MohammadYounes/rtlcss
 
+**LTR input:**
+```css
+.code {
+  direction:ltr;
+  text-align:left;
+}
+```
+**RTL output:**
+```css
+.code {
+  direction:rtl;
+  text-align:right;
+}
+```
+
+| Syntax | Description |
+| ------ | ----------- |
+| `/*rtl:ignore*/` | Ignores processing of the following node or nodes within scope. |
+
+Ignore one rule:
+```css
+  /*rtl:ignore*/
+.code {
+  direction:ltr;
+  text-align:left;
+}
+```
+
+Value-syntax to ignore a single CSS declaration::
+```css
+.code {
+  direction:ltr;
+  text-align:left /* rtl:ignore */;
+}
+```
+
+Self-closing:
 ```css
 .code {
   /*rtl:ignore*/
@@ -16,10 +53,15 @@ It verifies if the name of your CSS/PCSS file includes the suffix '-rtl', and if
 }
 ```
 
+Block-syntax:
 ```css
-.foo {
-  /* Output example */
+.code {
+  /*rtl:begin:ignore*/
+  direction:ltr;
+  text-align:left;
+  /*rtl:end:ignore*/
 }
+
 ```
 
 ## Usage
