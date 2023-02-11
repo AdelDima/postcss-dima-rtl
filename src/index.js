@@ -66,7 +66,7 @@ const plugin = (options) => {
     Once(root) {
       const isRuleIgnored = handleIgnores(options.removeComments);
         /* istanbul ignore start */
-        // if (!root.source.input.file.endsWith("-rtl.css")) return;
+        if (!root.source.input.file.endsWith("-rtl.css")) return;
         /* istanbul ignore end */
 
       root.walk((node) => {
