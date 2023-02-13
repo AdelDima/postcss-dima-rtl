@@ -67,7 +67,7 @@ const plugin = (options) => {
         let rtlResult = rule.toString();
         rtlResult = rtlcss.process(rule.toString(), options);
 
-        const newRule = postcss.parse(rtlResult).first;
+        const newRule = postcss.parse(rtlResult, {from: root.source.input.file}).first;
         rule.replaceWith(newRule);
       });
     },
